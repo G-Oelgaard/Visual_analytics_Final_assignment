@@ -30,6 +30,6 @@ The data was spilt into training and a testing data of similar size (80-20), spl
 
 ## ------ SCRIPTS ------
 - The model_creation.py script requires you to give the arguments "-e" / "--epoch" (how many epoch you want it to train) and "-b" / "--batch" (for batchsize).
-- - The pretrained model was created with 10 epochs and batchsize 128
+ - The pretrained model was created with 10 epochs and batchsize 128
 
 - The poster_prediction.py script requires you to give the argument "-i" / "--image" (the name of the image you want to predict)
