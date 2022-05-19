@@ -1,11 +1,12 @@
 # Visual_analytics_Final_assignment
 This repository contains two scripts aiming to try and predict whether a movie is good or bad (according to IMDB-score) based on its poster.
 
-Originally the script was supposed to be a multiclass classification split into 5 classes: Terrible, Bad, Decent, Good and Great. However, it soon became apperant that not only is it increasingly difficult to predict a movies quality based on its poster (if not impossible), the data was also heavily unbalanced towards the category "Good". It was therefore decided to instead try creating a binary classification, with all movies with a IMDB-score of =<7 being deemed good and >7 being deemed bad. This cut follows the average movie score according to IMDB. This means that any movie in the "good" data are movies with an above-average score.
+Originally the script was supposed to be a multiclass classification using VGG16 split into 5 classes: Terrible, Bad, Decent, Good and Great. However, it soon became apperant that not only is it increasingly difficult to predict a movies quality based on its poster (if not impossible), the data was also heavily unbalanced towards the category "Good". It was therefore decided to instead try creating a binary classification using VGG16, with all movies with a IMDB-score of =<7 being deemed good and >7 being deemed bad. This cut follows the average movie score according to IMDB. This means that any movie in the "good" data are movies with an above-average score.
 
 As you will see with the model, it is not good at predicting a movies quality. Even after countless hours trying to optimise the model, it seldomly gave a validation accuracy of above 0.6. Meaning that it is probably not possible to predict a whether or not a movie is good or bad based on its poster. This follows in line with other models that have tried to do the same thing (such as https://www.kaggle.com/code/phiitm/can-we-judge-a-movie-by-it-s-poster)
 
 In practice this repo contains two scripts and a pretrained model. One to create said model and one to predict images with the pretrained model. This was done so you wouldn't have to create the model each time you wished to predict a movies poster, but instead just could use the already created model.
+
 
 ## ------ DATA ------
 The data is from the kaggle dataset: https://www.kaggle.com/datasets/phiitm/movie-posters. 
@@ -26,5 +27,11 @@ The data was spilt into training and a testing data of similar size (80-20), spl
 
 "utils" FOLDER:
 - This folder should include all utility scrips used by the main script.
+
+## ------ SCRIPTS ------
+- The model_creation.py script requires you to give the arguments "-e" / "--epoch" (how many epoch you want it to train) and "-b" / "--batch" (for batchsize).
+-- The pretrained model was created with 10 epochs and batchsize 128
+
+- The poster_prediction.py script requires you to give the argument "-i" / "--image" (the name of the image you want to predict)
 
 ## ------ REQUIREMENTS ------
