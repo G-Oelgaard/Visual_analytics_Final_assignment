@@ -37,6 +37,8 @@ The data was split into training and a testing data of similar size (80-20), spl
 - The poster_prediction.py script requires you to give the argument "-i" / "--image" (the name of the image you want to predict)
 
 ## ------ RESULTS ------
-Even with the different optimisations of the model, it did not become good at predicting whether or not a movie is good or bad based on its poster. There is almost as if there is a 50 / 50 chance of it guessing correctly or wrong. Notable critically appraised movies such as Batman (2022) or Dune were categorized as bad.  
+Even with the different optimisations of the model, it did not become good at predicting whether or not a movie is good or bad based on its poster. There is almost as if there is a 50 / 50 chance of it guessing correctly or wrong. Notable critically appraised movies such as Batman (2022) or Dune were categorized as bad.
+
+Another issue with the model is that it suffers from an apperant overfitting, as the val_accuracy of the model is stable, the val_loss is rising while train_accuracy is rising and train_loss is falling.
 
 In short: a model can't predict what this model is trying to predict. This follows in line with other models that have tried to do the same thing (such as https://www.kaggle.com/code/phiitm/can-we-judge-a-movie-by-it-s-poster).
