@@ -29,7 +29,6 @@ The data was spilt into training and a testing data of similar size (80-20), spl
 - This folder should include all utility scrips used by the main script.
 
 ## ------ SCRIPTS ------
-- The model_creation.py script requires you to give the arguments "-e" / "--epoch" (how many epoch you want it to train) and "-b" / "--batch" (for batchsize).
- - The pretrained model was created with 10 epochs and batchsize 128
+- The model_creation.py script requires you to give the arguments "-e" / "--epoch" (how many epoch you want it to train) and "-b" / "--batch" (for batchsize). The pretrained model was created with 10 epochs and batchsize 128
 
 - The poster_prediction.py script requires you to give the argument "-i" / "--image" (the name of the image you want to predict)
