@@ -7,7 +7,7 @@ As you will see with the model, it is not good at predicting a movies quality. E
 
 In practice this repo contains two scripts and a pretrained model. One to create said model and one to predict images with the pretrained model. This was done so you wouldn't have to create the model each time you wished to predict a movies poster, but instead just could use the already created model.
 
-NOTE: Due to file size limitations, the pretrained model is in a .zip file and needs to be unziped before use.
+NOTE: Due to file size limitations, the **pretrained model is in a .zip file and needs to be unziped before use.**
 
 ## ------ DATA ------
 The data is from the kaggle dataset: https://www.kaggle.com/datasets/phiitm/movie-posters. 
