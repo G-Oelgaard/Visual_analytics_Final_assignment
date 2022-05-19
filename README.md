@@ -26,7 +26,7 @@ The data was split into training and a testing data of similar size (80-20), spl
 - Any posters that you wish to predict using the poster_prediction.py script should be placed in the "Prediction_images" folder.
 
 "out" FOLDER:
-- This is where the model and its history plot will be saved
+- This is where the model, history plot and classification report will be saved
 
 "utils" FOLDER:
 - This folder should include all utility scripts used by the main script.
