@@ -1,10 +1,14 @@
 ## Importing packages ##
 # base tools
+
 import os, sys
 sys.path.append(os.path.join(".."))
 
 # Sklearn
+import sklearn
 from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
 
 # tensorflow
 import tensorflow as tf
@@ -31,20 +35,34 @@ import argparse
 # Loading data
 def load_data(batch):
     
-    train = ImageDataGenerator(rescale=1/255, horizontal_flip=True, rotation_range=20)
-    test = ImageDataGenerator(rescale=1/255, horizontal_flip=True, rotation_range=20)
+    train_data = keras.utils.image_dataset_from_directory(
+        directory= "../in/Train",
+        labels='inferred',
+        label_mode='binary',
+        batch_size=int(batch),
+        image_size=(224, 224))
 
-    train_data = train.flow_from_directory(os.path.join("..","in","Train"),
-                                              target_size=(224,224),
-                                              batch_size = int(batch),
-                                              class_mode = 'categorical')
-
-    test_data = test.flow_from_directory(os.path.join("..","in","Test"),
-                                              target_size=(224,224),
-                                              batch_size = int(batch),
-                                              class_mode = 'categorical')
+    test_data = keras.utils.image_dataset_from_directory(
+        directory= "../in/Test",
+        labels='inferred',
+        label_mode='binary',
+        batch_size=int(batch),
+        image_size=(224, 224))
     
-    label_names = ["Bad", "Good"]
+    #train = ImageDataGenerator(rescale=1/255, horizontal_flip=True, rotation_range=20)
+    #test = ImageDataGenerator(rescale=1/255, horizontal_flip=True, rotation_range=20)
+
+    #train_data = train.flow_from_directory(os.path.join("..","Input","Good_or_bad_balanced","Train"),
+                                              #target_size=(224,224),
+                                              #batch_size = int(batch),
+                                              #class_mode = 'binary')
+
+    #test_data = test.flow_from_directory(os.path.join("..","Input","Good_or_bad_balanced","Test"),
+                                              #target_size=(224,224),
+                                              #batch_size = int(batch),
+                                              #class_mode = 'binary')
+    
+    label_names = train_data.class_names
     
     return label_names, test_data, train_data
 
@@ -63,7 +81,7 @@ def load_model(train_data, test_data, epoch, batch):
     bn = BatchNormalization()(flat1)
     class1 = Dense(256, activation='relu')(bn)
     class2 = Dense(128, activation="relu")(flat1)
-    output = Dense(2, activation="sigmoid")(class1)
+    output = Dense(1, activation="sigmoid")(class1)
 
     model = Model(inputs = model.inputs,
                   outputs = output)
@@ -71,7 +89,7 @@ def load_model(train_data, test_data, epoch, batch):
     model.summary()
     
     model.compile(optimizer="adam",
-              loss="categorical_crossentropy",
+              loss="binary_crossentropy",
               metrics=["accuracy"])
 
     H = model.fit(train_data,
@@ -112,11 +130,12 @@ def save_history_plots(H, epoch):
     plt.show()
 
 # Plot and save classification report
-def classification_report(model, test_data, batch, label_names):
-    Y_pred = model.predict(test_data, 1320 // int(batch)+1)
-    y_pred = np.argmax(Y_pred, axis=1)
-    class_report = classification_report(test_data.classes, y_pred, target_names=label_names)
-    print(class_report)
+def class_report(test_data, model, label_names):
+    y_test = np.concatenate([y for x, y in test_data], axis=0)
+    X_test = np.concatenate([x for x, y in test_data], axis=0)
+    predictions = model.predict(X_test, batch_size=32)
+    preds = [1 if i>0.5 else 0 for i in predictions]
+    print(classification_report(y_test, preds, target_names = label_names))
     
     outpath = os.path.join("..","out","poster_pred_class_report.txt")
     
@@ -144,10 +163,9 @@ def main():
     label_names, test_data, train_data = load_data(args["batch"])
     H, model = load_model(train_data, test_data, args["epoch"], args["batch"])
     save_history_plots(H, args["epoch"])
-    #classification_report(model, test_data, label_names, args["epoch"])
+    class_report(test_data, model, label_names)
     model_save(model)
               
 # Running main
 if __name__ == "__main__":
     main()
-    
