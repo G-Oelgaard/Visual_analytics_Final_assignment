@@ -33,5 +33,3 @@ The data was spilt into training and a testing data of similar size (80-20), spl
 -- The pretrained model was created with 10 epochs and batchsize 128
 
 - The poster_prediction.py script requires you to give the argument "-i" / "--image" (the name of the image you want to predict)
-
-## ------ REQUIREMENTS ------
